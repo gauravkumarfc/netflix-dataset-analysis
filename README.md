@@ -1,7 +1,3 @@
-To make the project description more original, I'll rephrase the content and remove any potential plagiarism while maintaining the structure and technical accuracy. Here's a cleaned-up version:
-
----
-
 # Netflix Movies and TV Shows Data Analysis Using SQL
 
 ## Overview
