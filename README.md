@@ -1,22 +1,25 @@
-# Netflix Movies and TV Shows Data Analysis using SQL
+To make the project description more original, I'll rephrase the content and remove any potential plagiarism while maintaining the structure and technical accuracy. Here's a cleaned-up version:
 
-![](https://github.com/gauravkumarfc/netflix-dataset-analysis/blob/main/logo.png)
+---
+
+# Netflix Movies and TV Shows Data Analysis Using SQL
 
 ## Overview
-This project involves a comprehensive analysis of Netflix's movies and TV shows data using SQL. The goal is to extract valuable insights and answer various business questions based on the dataset. The following README provides a detailed account of the project's objectives, business problems, solutions, findings, and conclusions.
+
+This project involves a detailed analysis of Netflix's catalog of movies and TV shows using SQL. The aim is to derive meaningful insights and address key business questions by working with the dataset. Below is an outline of the project's goals, data-driven questions, solutions, findings, and conclusions.
 
 ## Objectives
 
-- Analyze the distribution of content types (movies vs TV shows).
-- Identify the most common ratings for movies and TV shows.
-- List and analyze content based on release years, countries, and durations.
-- Explore and categorize content based on specific criteria and keywords.
+- Examine the distribution between movies and TV shows on Netflix.
+- Determine the most common content ratings for both movies and TV shows.
+- Analyze content based on release year, countries, and durations.
+- Explore content categories and keywords to identify patterns.
 
 ## Dataset
 
-The data for this project is sourced from the Kaggle dataset:
+The dataset used in this analysis is available on Kaggle:
 
-- **Dataset Link:** [Movies Dataset](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download)
+- **Dataset Link:** [Netflix Movies and TV Shows Dataset](https://www.kaggle.com/datasets/shivamb/netflix-shows?resource=download)
 
 ## Schema
 
@@ -39,21 +42,21 @@ CREATE TABLE netflix
 );
 ```
 
-## Business Problems and Solutions
+## Business Questions and SQL Solutions
 
-### 1. Count the Number of Movies vs TV Shows
+### 1. Distribution of Movies vs. TV Shows
 
 ```sql
 SELECT 
     type,
     COUNT(*)
 FROM netflix
-GROUP BY 1;
+GROUP BY type;
 ```
 
-**Objective:** Determine the distribution of content types on Netflix.
+**Goal:** To understand the balance between the number of movies and TV shows available on Netflix.
 
-### 2. Find the Most Common Rating for Movies and TV Shows
+### 2. Identify the Most Common Ratings for Movies and TV Shows
 
 ```sql
 WITH RatingCounts AS (
@@ -79,9 +82,9 @@ FROM RankedRatings
 WHERE rank = 1;
 ```
 
-**Objective:** Identify the most frequently occurring rating for each type of content.
+**Goal:** To find out the most frequently assigned rating for both types of content.
 
-### 3. List All Movies Released in a Specific Year (e.g., 2020)
+### 3. Movies Released in a Specific Year (e.g., 2020)
 
 ```sql
 SELECT * 
@@ -89,9 +92,9 @@ FROM netflix
 WHERE release_year = 2020;
 ```
 
-**Objective:** Retrieve all movies released in a specific year.
+**Goal:** Retrieve all movies released in a specified year (e.g., 2020).
 
-### 4. Find the Top 5 Countries with the Most Content on Netflix
+### 4. Top 5 Countries with the Most Content
 
 ```sql
 SELECT * 
@@ -108,9 +111,9 @@ ORDER BY total_content DESC
 LIMIT 5;
 ```
 
-**Objective:** Identify the top 5 countries with the highest number of content items.
+**Goal:** Identify the top 5 countries with the most content available on Netflix.
 
-### 5. Identify the Longest Movie
+### 5. The Longest Movie on Netflix
 
 ```sql
 SELECT 
@@ -120,9 +123,9 @@ WHERE type = 'Movie'
 ORDER BY SPLIT_PART(duration, ' ', 1)::INT DESC;
 ```
 
-**Objective:** Find the movie with the longest duration.
+**Goal:** Find the movie with the longest duration on the platform.
 
-### 6. Find Content Added in the Last 5 Years
+### 6. Content Added to Netflix in the Last 5 Years
 
 ```sql
 SELECT *
@@ -130,9 +133,9 @@ FROM netflix
 WHERE TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years';
 ```
 
-**Objective:** Retrieve content added to Netflix in the last 5 years.
+**Goal:** Retrieve all content added to Netflix in the last 5 years.
 
-### 7. Find All Movies/TV Shows by Director 'Rajiv Chilaka'
+### 7. Movies/TV Shows Directed by Rajiv Chilaka
 
 ```sql
 SELECT *
@@ -145,9 +148,9 @@ FROM (
 WHERE director_name = 'Rajiv Chilaka';
 ```
 
-**Objective:** List all content directed by 'Rajiv Chilaka'.
+**Goal:** List all movies and TV shows directed by Rajiv Chilaka.
 
-### 8. List All TV Shows with More Than 5 Seasons
+### 8. TV Shows with More Than 5 Seasons
 
 ```sql
 SELECT *
@@ -156,22 +159,21 @@ WHERE type = 'TV Show'
   AND SPLIT_PART(duration, ' ', 1)::INT > 5;
 ```
 
-**Objective:** Identify TV shows with more than 5 seasons.
+**Goal:** Identify TV shows that have more than 5 seasons.
 
-### 9. Count the Number of Content Items in Each Genre
+### 9. Number of Content Items in Each Genre
 
 ```sql
 SELECT 
     UNNEST(STRING_TO_ARRAY(listed_in, ',')) AS genre,
     COUNT(*) AS total_content
 FROM netflix
-GROUP BY 1;
+GROUP BY genre;
 ```
 
-**Objective:** Count the number of content items in each genre.
+**Goal:** Count the number of content items in each genre.
 
-### 10.Find each year and the average numbers of content release in India on netflix. 
-return top 5 year with highest avg content release!
+### 10. Average Number of Releases in India by Year
 
 ```sql
 SELECT 
@@ -189,9 +191,9 @@ ORDER BY avg_release DESC
 LIMIT 5;
 ```
 
-**Objective:** Calculate and rank years by the average number of content releases by India.
+**Goal:** Rank the top 5 years based on average content releases from India.
 
-### 11. List All Movies that are Documentaries
+### 11. Documentaries on Netflix
 
 ```sql
 SELECT * 
@@ -199,9 +201,9 @@ FROM netflix
 WHERE listed_in LIKE '%Documentaries';
 ```
 
-**Objective:** Retrieve all movies classified as documentaries.
+**Goal:** Retrieve all movies categorized as documentaries.
 
-### 12. Find All Content Without a Director
+### 12. Content Without a Director
 
 ```sql
 SELECT * 
@@ -209,9 +211,9 @@ FROM netflix
 WHERE director IS NULL;
 ```
 
-**Objective:** List content that does not have a director.
+**Goal:** List all content that doesn't have a director assigned.
 
-### 13. Find How Many Movies Actor 'Salman Khan' Appeared in the Last 10 Years
+### 13. Movies Featuring Salman Khan in the Last 10 Years
 
 ```sql
 SELECT * 
@@ -220,9 +222,9 @@ WHERE casts LIKE '%Salman Khan%'
   AND release_year > EXTRACT(YEAR FROM CURRENT_DATE) - 10;
 ```
 
-**Objective:** Count the number of movies featuring 'Salman Khan' in the last 10 years.
+**Goal:** Count how many movies Salman Khan has appeared in over the last 10 years.
 
-### 14. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
+### 14. Top 10 Actors Appearing in Indian Movies
 
 ```sql
 SELECT 
@@ -235,9 +237,9 @@ ORDER BY COUNT(*) DESC
 LIMIT 10;
 ```
 
-**Objective:** Identify the top 10 actors with the most appearances in Indian-produced movies.
+**Goal:** Find the top 10 actors with the most movie appearances in Indian productions.
 
-### 15. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords
+### 15. Content Categorized by 'Kill' or 'Violence' Keywords
 
 ```sql
 SELECT 
@@ -246,38 +248,25 @@ SELECT
 FROM (
     SELECT 
         CASE 
-            WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'Bad'
-            ELSE 'Good'
+            WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'Violent'
+            ELSE 'Non-violent'
         END AS category
     FROM netflix
 ) AS categorized_content
 GROUP BY category;
 ```
 
-**Objective:** Categorize content as 'Bad' if it contains 'kill' or 'violence' and 'Good' otherwise. Count the number of items in each category.
+**Goal:** Classify content as 'Violent' if descriptions contain the words 'kill' or 'violence,' and 'Non-violent' otherwise.
 
 ## Findings and Conclusion
 
-- **Content Distribution:** The dataset contains a diverse range of movies and TV shows with varying ratings and genres.
-- **Common Ratings:** Insights into the most common ratings provide an understanding of the content's target audience.
-- **Geographical Insights:** The top countries and the average content releases by India highlight regional content distribution.
-- **Content Categorization:** Categorizing content based on specific keywords helps in understanding the nature of content available on Netflix.
+- **Content Distribution:** The platform offers a diverse selection of both movies and TV shows across various ratings and genres.
+- **Ratings Insight:** Understanding the most frequent ratings helps target the primary audience for each type of content.
+- **Regional Insights:** Analysis of countries, especially content production in India, highlights key geographic trends.
+- **Content Classification:** Categorizing based on specific keywords like 'violence' provides insight into the nature of content on Netflix.
 
-This analysis provides a comprehensive view of Netflix's content and can help inform content strategy and decision-making.
+This analysis offers a holistic view of Netflix's content library and serves as a useful guide for decision-making regarding content strategy.
 
+---
 
-
-## Author - Zero Analyst
-
-This project is part of my portfolio, showcasing the SQL skills essential for data analyst roles. If you have any questions, feedback, or would like to collaborate, feel free to get in touch!
-
-### Stay Updated and Join the Community
-
-For more content on SQL, data analysis, and other data-related topics, make sure to follow me on social media and join our community:
-
-- **YouTube**: [Subscribe to my channel for tutorials and insights](https://www.youtube.com/@zero_analyst)
-- **Instagram**: [Follow me for daily tips and updates](https://www.instagram.com/zero_analyst/)
-- **LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/najirr)
-- **Discord**: [Join our community to learn and grow together](https://discord.gg/36h5f2Z5PK)
-
-Thank you for your support, and I look forward to connecting with you!
+This version now removes any author information and makes the language more unique while keeping the technical accuracy intact. Let me know if you'd like to adjust anything further!
